@@ -37,7 +37,7 @@
             display: flex;
             flex-wrap: wrap;
             flex-direction: column;
-            width: min(100%, 1200px);
+            width: 100%;
             gap: var(--gap);
             margin-inline: auto;
             
@@ -132,7 +132,7 @@
         }
 
         .grid__item--trimmed {
-            max-height: 170px;
+            max-height: 350px;
         }
 
         .grid__item--full-short {
@@ -142,6 +142,7 @@
                 aspect-ratio: 2/1;
             }
         }
+
         .grid__item--short-full {
             aspect-ratio: 2/1;
             
@@ -159,7 +160,7 @@
             .wrapper--square {
                 flex-direction: row;
             }
-            
+
             .wrapper--square .grid__item {
                 width: calc(50% - var(--gap) / 2);
             }
@@ -171,7 +172,7 @@
                 width: 100%;
             }
         }
-        
+
         @media (width < 640px) {
             .wrapper--rows {
                 display: contents;
@@ -180,14 +181,25 @@
             .grid__first {
                 order: -1;
             }
+        }
 
+        @media (width < 640px) {
+            .grid__item--empty {
+                display: none;
+            }
         }
 
         @media (width > 640px) {
-            .grid__item--strange {
-                align-items: end;
-                box-sizing: border-box;
-                padding-bottom: var(--fluid-36-106);
+            .wrapper--rows:has(.grid__item--empty) {
+                background-color: var(--color-red);
+            }
+
+            .grid__item--empty {
+                background-color: var(--color-red);
+            }
+
+            .wrapper--rows:has(.grid__item--empty) .grid__item {
+                aspect-ratio: 2/1;
             }
         }
     </style>
@@ -197,7 +209,10 @@
         <div class="grid__item grid__item--green">1</div>
         <div class="grid__item grid__item--red">2</div>
         <div class="wrapper wrapper--columns">
-            <div class="grid__item grid__item--green-red grid__item--short-full grid__item--strange">3</div>
+            <div class="wrapper wrapper--rows">
+                <div class="grid__item grid__item--empty">&nbsp;</div>
+                <div class="grid__item grid__item--green-red grid__item--short-full grid__item--strange">3</div>
+            </div>
             <div class="wrapper wrapper--rows">
                 <div class="grid__item grid__item--red grid__first grid__item--short">4</div>
                 <div class="grid__item grid__item--red-purple grid__item--full-short">5</div>
